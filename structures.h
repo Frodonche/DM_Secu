@@ -1,3 +1,4 @@
+
 struct liste_s{
     int elem;
     struct liste_s *next;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "structures.h"
+#include "tests.h"
 
 int main()
 {
@@ -8,19 +8,17 @@ int main()
 
     lfsr l1 = malloc(sizeof(struct lfsr_s));
     init_lfsr(l1, 8, 12, 20, 25);
-    afficher_lfsr(l1);
-    printf("Le dernier element de la liste : %d\n", get_element(l1->liste, l1->taille-1)->elem);
-    printf("Maintenant, on shit un coup\n");
-    shift(l1);
-    afficher_lfsr(l1);
 
     lfsr l2 = malloc(sizeof(struct lfsr_s));
+    init_lfsr(l2, 12, 16, 24, 31);
 
     lfsr l3 = malloc(sizeof(struct lfsr_s));
+    init_lfsr(l3, 4, 24, 28, 33);
 
     lfsr l4 = malloc(sizeof(struct lfsr_s));
+    init_lfsr(l4, 4, 28, 36, 39);
 
-
+    test(l1, l2, l3, l4);
 
     return 0;
 }
