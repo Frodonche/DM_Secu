@@ -4,19 +4,25 @@ struct liste_s{
 };
 typedef struct liste_s* llist;
 
-struct lsfr_s{
+struct lfsr_s{
     int b1; // les 3 bits a extraire
     int b2;
     int b3;
     int taille;
-    int next_value;
     llist liste;
 };
-typedef struct lsfr_s* lsfr;
+typedef struct lfsr_s* lfsr;
 
 llist ajouter(llist liste, int valeur);
 
 llist init_liste_aleatoire(llist liste, int taille);
 
-lsfr init_lsfr(lsfr ls, int b1, int b2, int b3, int taille, llist li); // pour initialiser un lsfr
+lfsr init_lfsr(lfsr ls, int b1, int b2, int b3, int taille); // pour initialiser un lfsr
 
+void afficher_liste(llist liste);
+
+void afficher_lfsr(lfsr ls);
+
+llist get_element(llist liste, int indice);
+
+lfsr shift(lfsr ls);
