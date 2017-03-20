@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1490029933 source:c:\users\guigu\desktop\dm_secu\main.c
+	<stdio.h>
+	<stdlib.h>
+	"structures.h"
+
+1490029897 c:\users\guigu\desktop\dm_secu\structures.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"structures.h"
+
+1490030638 source:c:\users\guigu\desktop\dm_secu\structures.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"structures.h"
+
+1490030578 c:\users\guigu\desktop\dm_secu\structures.h
+
