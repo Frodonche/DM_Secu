@@ -40,6 +40,27 @@ llist hex_to_bin(char * hex, llist liste, int taille){
     return dec_to_bin(dec, liste, taille);
 }
 
+void dec_to_hex(int dec){ // a n'utiliser que pour de l'affichage car crade
+    long int decimalNumber = dec;
+    long int quotient, temp;
+	int i=1,j;
+	char hexadecimalNumber[100];
+	quotient = decimalNumber;
+	while(quotient!=0) {
+		temp = quotient % 16;
+		//To convert integer into character
+        if( temp < 10)
+            temp =temp + 48;
+        else
+            temp = temp + 55;
+		hexadecimalNumber[i++]= temp;
+		quotient = quotient / 16;
+	}
+	for (j = i -1 ;j> 0;j--){
+        printf("%c",hexadecimalNumber[j]);
+	}
+}
+
 int rdtsc(){
     __asm__ __volatile__("rdtsc"); // pour un nombre aléatoire plus efficace
 }
@@ -221,8 +242,26 @@ fsm init_fsm(fsm f){
     f -> yt = NULL;
     f -> yt = dec_to_bin(temp, f->yt, 3); // car y est sur 3 bits
 
+    f -> z = get_element(f->yt, 2)->elem; // 2 pour récupérer le bit 0 car yt sur 3 bits
     // on initialise ct-1 a 01
     f -> ctmoins = NULL;
     f -> ctmoins = ajouter(f->ctmoins, 1);
     f -> ctmoins = ajouter(f->ctmoins, 0);
+}
+
+void afficher_fsm(fsm f){
+    printf("\n%d  ", f->t);
+    dec_to_hex(bin_to_dec(f->lfsr_1->liste, f->lfsr_1->taille)); printf("    ");
+    dec_to_hex(bin_to_dec(f->lfsr_2->liste, f->lfsr_2->taille)); printf("  ");
+    dec_to_hex(bin_to_dec(f->lfsr_3->liste, f->lfsr_3->taille)); printf("  ");
+    dec_to_hex(bin_to_dec(f->lfsr_4->liste, f->lfsr_4->taille)); printf("         ");
+    printf("%d   ", f->x1);
+    printf("%d   ", f->x2);
+    printf("%d   ", f->x3);
+    printf("%d   ", f->x4);
+    printf("%d  ", f->z);
+    printf("%d", f->ct->elem);
+    printf("%d   ", f->ct->next->elem);
+    printf("%d", f->ctmoins->elem);
+    printf("%d   ", f->ctmoins->next->elem);
 }

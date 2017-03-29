@@ -28,6 +28,7 @@ struct fsm_s{
     llist ct; // initialiser a 11
     llist yt;
     llist ctmoins; // initialiser a 01
+    int z;
 };
 typedef struct fsm_s* fsm;
 
@@ -39,6 +40,7 @@ int bin_to_dec(llist bin, int taille);
 
 llist hex_to_bin(char * hex, llist liste, int taille);
 
+void dec_to_hex(int dec);
 int rdtsc();
 
 llist ajouter(llist liste, int valeur);
@@ -60,3 +62,5 @@ llist get_element(llist liste, int indice);
 lfsr shift(lfsr ls);
 
 fsm init_fsm();
+
+void afficher_fsm();
