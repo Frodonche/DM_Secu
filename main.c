@@ -11,6 +11,12 @@ int main()
 
     printf("t  LFSR1     LFSR2     LFSR3     LFSR4     X1  X2  X3  X4  z  ct  ct-1\n");
 
+    int i = 0;
+    while (i < 100){
+        afficher_fsm(f);
+        t_plus_un(f);
+        i++;
+    }
     afficher_fsm(f);
 
     return 0;

@@ -64,3 +64,5 @@ lfsr shift(lfsr ls);
 fsm init_fsm();
 
 void afficher_fsm();
+
+void t_plus_un(fsm f);

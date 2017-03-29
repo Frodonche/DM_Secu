@@ -265,3 +265,49 @@ void afficher_fsm(fsm f){
     printf("%d", f->ctmoins->elem);
     printf("%d   ", f->ctmoins->next->elem);
 }
+
+void t_plus_un(fsm f){
+    shift(f->lfsr_1);
+    shift(f->lfsr_2);
+    shift(f->lfsr_3);
+    shift(f->lfsr_4);
+
+    f -> x1 = get_element(f->lfsr_1->liste, f->lfsr_1->x)->elem;
+    f -> x2 = get_element(f->lfsr_2->liste, f->lfsr_2->x)->elem;
+    f -> x3 = get_element(f->lfsr_3->liste, f->lfsr_3->x)->elem;
+    f -> x4 = get_element(f->lfsr_4->liste, f->lfsr_4->x)->elem;
+
+    int temp = f->x1 + f->x2 + f->x3 + f->x4 + bin_to_dec(f->ct, 2);
+    f -> yt = dec_to_bin(temp, f->yt, 3);
+    f -> z = get_element(f->yt, 2)->elem;
+    f -> t += 1;
+
+    int s = 2*(get_element(f->yt, 0)->elem)+get_element(f->yt, 1)->elem; //equivalent à st+1 = 2yt2 + yt1
+    llist sbin = NULL;
+    sbin = dec_to_bin(s, sbin, 2);
+
+    int c0 = get_element(f->ct, 1)->elem; // on récupère les éléments de l'actuel ct
+    int c1 = get_element(f->ct, 0)->elem;
+    int ctmoins0 = get_element(f->ctmoins, 1)->elem; //on récupère les élément de l'actuel ctmoins
+    int ctmoins1 = get_element(f->ctmoins, 0)->elem;
+    supprimerDernierElement(f->ctmoins); // on vide ctmoins
+    supprimerDernierElement(f->ctmoins);
+    ajouter(f->ctmoins, c0); // on deplace ct dans ctmoins
+    ajouter(f->ctmoins, c1);
+
+    supprimerDernierElement(f->ct); // on vide ct
+    supprimerDernierElement(f->ct);
+
+    // puis on calcule le nouveau ct
+    ajouter(f->ct, (get_element(sbin, 1)->elem)^c0^ctmoins0);
+    ajouter(f->ct, (get_element(sbin, 0)->elem)^c1^ctmoins1);
+}
+
+llist 32_valeurs_de_E0(fsm f){ // correspondant à la question 5
+    llist liste = NULL;
+    int i;
+    for(i = 0; i < 32; i++){
+        ajouter(liste, f->z); // on récupère le bit donné
+        t_plus_un(f); // on avance le temps d'un cran (t_plus_un non fonctionnel)
+    }
+}
