@@ -31,3 +31,14 @@ void test(lfsr l1, lfsr l2, lfsr l3, lfsr l4){
     shift(l4);
     afficher_lfsr(l4);
 }
+
+void test_convertisseurs(){
+    char * hex = "8";
+    int dec = hex_to_dec(hex);
+    printf("Dec : %d\n", dec);
+    llist bin = NULL;
+    bin = dec_to_bin(dec, bin, 10);
+    afficher_liste(bin);
+
+
+}

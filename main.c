@@ -7,18 +7,20 @@ int main()
     printf("Implementation de l'algorithme E0\n");
 
     lfsr l1 = malloc(sizeof(struct lfsr_s));
-    init_lfsr(l1, 8, 12, 20, 25);
+    init_lfsr_hexa(l1, 8, 12, 20, 25, 23, "04B583D");
+
 
     lfsr l2 = malloc(sizeof(struct lfsr_s));
-    init_lfsr(l2, 12, 16, 24, 31);
+    init_lfsr_hexa(l2, 12, 16, 24, 31, 23, "208E1EC1");
 
     lfsr l3 = malloc(sizeof(struct lfsr_s));
-    init_lfsr(l3, 4, 24, 28, 33);
+    init_lfsr_hexa(l3, 4, 24, 28, 33, 31, "063C142F0");
 
     lfsr l4 = malloc(sizeof(struct lfsr_s));
-    init_lfsr(l4, 4, 28, 36, 39);
+    init_lfsr_hexa(l4, 4, 28, 36, 39, 37, "0F7A2A42BB");
 
     test(l1, l2, l3, l4);
+    //test_convertisseurs();
 
     return 0;
 }

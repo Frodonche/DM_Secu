@@ -3,6 +3,39 @@
 #include <time.h>
 #include "structures.h"
 
+int hex_to_dec(char * hex){
+    return strtoul(hex, NULL, 16);
+}
+
+llist dec_to_bin(int dec, llist liste, int taille){
+    int r;
+    int n = dec;
+    int i = 0;
+    while(n!=0 || i < taille){ // on rajoute taille histoire d'avoir le binaire de la taille que l'on veut
+        if(n!=0){ // si le nombre n'est pas encore totalement traite
+            r=n%2;
+            liste = ajouter(liste, r);
+            n=(n-r)/2;
+        }else{ // si on a fini de traiter le nombre, on rajoute des 0
+            liste = ajouter(liste, 0);
+        }
+        i++;
+    }
+    return liste;
+}
+
+llist hex_to_bin(char * hex, llist liste, int taille){
+    int dec = hex_to_dec(hex);
+    return dec_to_bin(dec, liste, taille);
+}
+
+int rdtsc(){
+    __asm__ __volatile__("rdtsc"); // pour un nombre aléatoire plus efficace
+}
+
+///////////////////////// PARTIE CONVERSION /////////////////////////////////
+///////////////////////// PARTIE LISTES /////////////////////////////////////
+
 llist ajouter(llist liste, int valeur){
     llist nouvel_element = malloc(sizeof(struct liste_s)); // On crée un nouvel élément
 
@@ -13,12 +46,22 @@ llist ajouter(llist liste, int valeur){
     return nouvel_element; // On retourne la nouvelle liste, i.e. le pointeur sur le premier élément
 }
 
-llist init_liste_aleatoire(llist liste, int taille){ // on initialise la liste "aléatoirement" pour l'instant
+llist init_liste_aleatoire(llist liste, int taille){ // on initialise la liste aléatoirement pour l'instant
     int i;
     int nombre;
     for(i = 0; i < taille; i++){
+        srand(rdtsc());
         nombre = rand() % 2; // [0,2[
         liste = ajouter(liste, nombre);
+    }
+    return liste;
+}
+
+llist init_liste_hexa(llist liste, int taille, char* hexa){
+    int i;
+    llist bin = hex_to_bin(hexa, bin, taille);
+    for(i = 0; i < taille; i++){
+        liste = ajouter(liste, get_element(bin, taille-i-1)->elem); // on prend taille -i pour récupérer les bits de poids faible d'abord
     }
     return liste;
 }
@@ -79,13 +122,25 @@ llist supprimerDernierElement(llist liste){
 
 // FONCTIONS MANIPULATION LSFR
 
-lfsr init_lfsr(lfsr ls, int b1, int b2, int b3, int taille){ // pour initialiser un lsfr
+lfsr init_lfsr_alea(lfsr ls, int b1, int b2, int b3, int taille, int x){ // pour initialiser un lsfr aleatoirement
     ls -> b1 = b1;
     ls -> b2 = b2;
     ls -> b3 = b3;
+    ls -> x = x;
     ls -> taille = taille;
     ls -> liste = NULL;
     ls -> liste = init_liste_aleatoire(ls->liste, ls->taille);
+    return ls;
+}
+
+lfsr init_lfsr_hexa(lfsr ls, int b1, int b2, int b3, int taille, int x, char* hexa){
+    ls -> b1 = b1;
+    ls -> b2 = b2;
+    ls -> b3 = b3;
+    ls -> x = x;
+    ls -> taille = taille;
+    ls -> liste = NULL;
+    ls -> liste = init_liste_hexa(ls->liste, taille, hexa);
     return ls;
 }
 
@@ -94,6 +149,7 @@ void afficher_lfsr(lfsr ls){
     printf("b1 : %d\n", ls->b1);
     printf("b2 : %d\n", ls->b2);
     printf("b3 : %d\n", ls->b3);
+    printf("x : %d\n", ls->x);
     printf("Taille : %d\n", ls->taille);
     afficher_liste(ls->liste);
 }

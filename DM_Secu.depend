@@ -1,8 +1,7 @@
 # depslib dependency file v1.0
-1490037714 source:c:\users\guigu\desktop\dm_secu\main.c
+1490799254 source:c:\users\guigu\desktop\dm_secu\main.c
 	<stdio.h>
 	<stdlib.h>
-	"structures.h"
 	"tests.h"
 
 1490029897 c:\users\guigu\desktop\dm_secu\structures.c
@@ -11,13 +10,27 @@
 	<time.h>
 	"structures.h"
 
-1490036350 source:c:\users\guigu\desktop\dm_secu\structures.c
+1490799472 source:c:\users\guigu\desktop\dm_secu\structures.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"structures.h"
 
-1490037821 c:\users\guigu\desktop\dm_secu\structures.h
+1490798222 c:\users\guigu\desktop\dm_secu\structures.h
 
-1490037848 c:\users\guigu\desktop\dm_secu\tests.h
+1490793893 c:\users\guigu\desktop\dm_secu\tests.h
+	"structures.h"
+
+1490798296 source:c:\users\guigu\desktop\dm_secu\tests.c
+	<stdio.h>
+	<stdlib.h>
+	"tests.h"
+
+1490793816 c:\users\guigu\desktop\dm_secu\convertisseurs.h
+	"structures.h"
+
+1490795046 source:c:\users\guigu\desktop\dm_secu\convertisseurs.c
+	<stdio.h>
+	<stdlib.h>
+	"convertisseurs.h"
 
