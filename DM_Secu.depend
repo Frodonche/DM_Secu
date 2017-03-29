@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1490799254 source:c:\users\guigu\desktop\dm_secu\main.c
+1490805582 source:c:\users\guigu\desktop\dm_secu\main.c
 	<stdio.h>
 	<stdlib.h>
 	"tests.h"
@@ -10,13 +10,13 @@
 	<time.h>
 	"structures.h"
 
-1490799472 source:c:\users\guigu\desktop\dm_secu\structures.c
+1490805488 source:c:\users\guigu\desktop\dm_secu\structures.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"structures.h"
 
-1490798222 c:\users\guigu\desktop\dm_secu\structures.h
+1490805294 c:\users\guigu\desktop\dm_secu\structures.h
 
 1490793893 c:\users\guigu\desktop\dm_secu\tests.h
 	"structures.h"

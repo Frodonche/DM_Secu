@@ -24,6 +24,17 @@ llist dec_to_bin(int dec, llist liste, int taille){
     return liste;
 }
 
+int bin_to_dec(llist bin, int taille){
+    int temp = 1;
+    int res = 0;
+    int i;
+    for(i = 0; i < taille; i++){
+        res = res + temp*get_element(bin, taille-i-1)->elem; // si le bit = 0, ça rajoute rien, sinon ça rajoute la valeur de la case
+        temp = temp *2; // on decalle d'une case a gauche
+    }
+    return res;
+}
+
 llist hex_to_bin(char * hex, llist liste, int taille){
     int dec = hex_to_dec(hex);
     return dec_to_bin(dec, liste, taille);
@@ -120,7 +131,7 @@ llist supprimerDernierElement(llist liste){
 
 // FONCTIONS MANIPULATION LISTES (AU DESSUS)
 
-// FONCTIONS MANIPULATION LSFR
+// FONCTIONS MANIPULATION LFSR
 
 lfsr init_lfsr_alea(lfsr ls, int b1, int b2, int b3, int taille, int x){ // pour initialiser un lsfr aleatoirement
     ls -> b1 = b1;
@@ -175,4 +186,43 @@ lfsr shift(lfsr ls){ // Pour shift :
     ls->liste = supprimerDernierElement(ls->liste);
 
     return NULL;
+}
+
+//////////// PARTIE LFSR ////////////
+//////////// PARTIE FSM /////////////
+
+fsm init_fsm(fsm f){
+    f -> t = 1;
+
+    f -> lfsr_1 = malloc(sizeof(struct lfsr_s));
+    init_lfsr_hexa(f -> lfsr_1, 8, 12, 20, 25, 23, "04B583D");
+
+    f -> lfsr_2 = malloc(sizeof(struct lfsr_s));
+    init_lfsr_hexa(f -> lfsr_2, 12, 16, 24, 31, 23, "208E1EC1");
+
+    f -> lfsr_3 = malloc(sizeof(struct lfsr_s));
+    init_lfsr_hexa(f -> lfsr_3, 4, 24, 28, 33, 31, "063C142F0");
+
+    f -> lfsr_4 = malloc(sizeof(struct lfsr_s));
+    init_lfsr_hexa(f -> lfsr_4, 4, 28, 36, 39, 37, "0F7A2A42BB");
+
+    f -> x1 = get_element(f->lfsr_1->liste, f->lfsr_1->x)->elem;
+    f -> x2 = get_element(f->lfsr_2->liste, f->lfsr_2->x)->elem;
+    f -> x3 = get_element(f->lfsr_3->liste, f->lfsr_3->x)->elem;
+    f -> x4 = get_element(f->lfsr_4->liste, f->lfsr_4->x)->elem;
+
+    // on initalise ct a 11
+    f -> ct = NULL;
+    f -> ct = ajouter(f->ct, 1);
+    f -> ct = ajouter(f->ct, 1);
+
+    //calcul de y en decimal, puis stockage en binaire
+    int temp = f->x1 + f->x2 + f->x3 + f->x4 + bin_to_dec(f->ct, 2); // 2 car ct sur 2 bits
+    f -> yt = NULL;
+    f -> yt = dec_to_bin(temp, f->yt, 3); // car y est sur 3 bits
+
+    // on initialise ct-1 a 01
+    f -> ctmoins = NULL;
+    f -> ctmoins = ajouter(f->ctmoins, 1);
+    f -> ctmoins = ajouter(f->ctmoins, 0);
 }

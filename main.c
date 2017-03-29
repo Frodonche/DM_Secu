@@ -19,8 +19,10 @@ int main()
     lfsr l4 = malloc(sizeof(struct lfsr_s));
     init_lfsr_hexa(l4, 4, 28, 36, 39, 37, "0F7A2A42BB");
 
-    test(l1, l2, l3, l4);
+    //test(l1, l2, l3, l4);
     //test_convertisseurs();
+    fsm f = malloc(sizeof(struct fsm_s));
+    f = init_fsm(f);
 
     return 0;
 }

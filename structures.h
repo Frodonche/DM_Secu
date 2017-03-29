@@ -15,9 +15,27 @@ struct lfsr_s{
 };
 typedef struct lfsr_s* lfsr;
 
+struct fsm_s{
+    int t; // le temps t présent dans toutes les formules
+    lfsr lfsr_1; // les 4 lfsr et leur associe
+    lfsr lfsr_2;
+    lfsr lfsr_3;
+    lfsr lfsr_4;
+    int x1;
+    int x2;
+    int x3;
+    int x4;
+    llist ct; // initialiser a 11
+    llist yt;
+    llist ctmoins; // initialiser a 01
+};
+typedef struct fsm_s* fsm;
+
 int hex_to_dec(char * hex);
 
 llist dec_to_bin(int dec, llist liste, int taille);
+
+int bin_to_dec(llist bin, int taille);
 
 llist hex_to_bin(char * hex, llist liste, int taille);
 
@@ -40,3 +58,5 @@ void afficher_lfsr(lfsr ls);
 llist get_element(llist liste, int indice);
 
 lfsr shift(lfsr ls);
+
+fsm init_fsm();
