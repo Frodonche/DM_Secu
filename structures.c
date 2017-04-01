@@ -225,7 +225,7 @@ fsm init_fsm(fsm f){
     init_lfsr_hexa(f -> lfsr_3, 4, 24, 28, 33, 31, "063C142F0");
 
     f -> lfsr_4 = malloc(sizeof(struct lfsr_s));
-    init_lfsr_hexa(f -> lfsr_4, 4, 28, 36, 39, 37, "0F7A2A42BB");
+    init_lfsr_hexa(f -> lfsr_4, 4, 28, 36, 39, 31, "0F7A2A42BB");
 
     f -> x1 = get_element(f->lfsr_1->liste, f->lfsr_1->x)->elem;
     f -> x2 = get_element(f->lfsr_2->liste, f->lfsr_2->x)->elem;
@@ -303,7 +303,7 @@ void t_plus_un(fsm f){
     ajouter(f->ct, (get_element(sbin, 0)->elem)^c1^ctmoins1);
 }
 
-llist 32_valeurs_de_E0(fsm f){ // correspondant à la question 5
+llist valeurs_de_E0(fsm f){ // correspondant à la question 5
     llist liste = NULL;
     int i;
     for(i = 0; i < 32; i++){

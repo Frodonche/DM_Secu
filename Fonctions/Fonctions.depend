@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1491055851 source:c:\users\guigu\desktop\dm_secu\fonctions\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
